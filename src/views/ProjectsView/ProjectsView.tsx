@@ -1,8 +1,11 @@
-import Projects from "../../components/containers/Projects";
+import ProjectsList from "../../components/containers/ProjectsList";
+import useProjects from "../../hooks/useProjects";
 
 const ProjectsView = () => {
+    const { projects } = useProjects();
+    
     return (
-        <Projects />
+        <ProjectsList projects={projects} />
     );
 };
 
