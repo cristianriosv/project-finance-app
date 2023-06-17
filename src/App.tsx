@@ -1,8 +1,8 @@
+import ProjectsView from "./views/ProjectsView/ProjectsView";
+
 function App() {
   return (
-    <div>
-      Hello
-    </div>
+    <ProjectsView />
   );
 }
 
