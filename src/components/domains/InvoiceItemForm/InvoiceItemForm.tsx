@@ -8,13 +8,15 @@ type InvoiceItemFormProps = {
     handleRemoveItem: (index: number) => void;
     item: ItemType;
     index: number;
+    withActions?: boolean;
 }
 
 const InvoiceItemForm = ({
     handleOnItemChange,
     handleRemoveItem,
     item,
-    index
+    index,
+    withActions = true
 }: InvoiceItemFormProps) => (
     <div key={index} className="w-full flex items-center gap-1">
         <div className="w-2/5">
@@ -46,9 +48,11 @@ const InvoiceItemForm = ({
             />
             <div className="w-full flex gap-1 pl-1 justify-end items-center">
                 <Typography className="text-right" variant="h6">$ {formatNumber(item.unitPrice * item.quantity || 0)}</Typography>
-                <IconButton size="sm" variant="text" onClick={() => handleRemoveItem(index)}>
-                    <i className="fas fa-close" />
-                </IconButton>
+                {withActions && (
+                    <IconButton size="sm" variant="text" onClick={() => handleRemoveItem(index)}>
+                        <i className="fas fa-close" />
+                    </IconButton>
+                )}
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@ import { formatNumber } from "../../../utils/numberUtils";
 
 
 const ProjectsList = () => {
-    const TABLE_HEAD = ["id", "Client", "Project title", "Total"];
+    const TABLE_HEAD = ["id", "Client", "Project title", "Total", ""];
     const [openedProject, setOpenedProject] = useState<number | null>(null);
     const { projects } = useContext(ProjectsContext)
 
@@ -21,21 +21,6 @@ const ProjectsList = () => {
                 <thead>
                     <tr>
                         {TABLE_HEAD.map((head, index) => <TableHead key={index} headName={head} />)}
-                        <TableHead
-                            headName={
-                                <Button
-                                    size="sm"
-                                    variant="outlined"
-                                    className="w-full m-0 text-center flex items-center gap-1"
-                                    // onClick={handleAddNewInvoice}
-                                >
-                                    <i className="fas fa-add" />
-                                    <Typography variant="small">
-                                        Add new project
-                                    </Typography>
-                                </Button>
-                            }
-                        />
                     </tr>
                 </thead>
                 <tbody>

@@ -14,7 +14,7 @@ type InvoicesListProps = {
 }
 
 const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
-    const { handleInvoiceForm, handleQuestionForm } = useContext(ProjectsContext);
+    const { handleInvoiceForm, handleQuestionForm, handlePrintInvoice } = useContext(ProjectsContext);
     const { deleteInvoice } = useInvoices();
     const TABLE_HEAD = ["id", "Sub total", "Discount or Fee", "Tax", "Total"];
     const tableCellClassName = "p-4 border-t border-blue-gray-50";
@@ -82,7 +82,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                                     <IconButton size="sm" variant="outlined" onClick={() => handleClickEditInvoice(invoice)}>
                                         <i className="fas fa-pen-to-square" />
                                     </IconButton>
-                                    <IconButton size="sm" variant="outlined">
+                                    <IconButton size="sm" variant="outlined" onClick={() => handlePrintInvoice(invoice, projectId)}>
                                         <i className="fas fa-print" />
                                     </IconButton>
                                     <IconButton size="sm" variant="outlined" onClick={() => handleDeleteInvoice(invoice.id)}>

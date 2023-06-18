@@ -1,1 +1,1 @@
-export const formatNumber = (number: Number) => Number(number.toFixed(2));
+export const formatNumber = (number?: Number) => number ? Number(number.toFixed(2)) : 0;

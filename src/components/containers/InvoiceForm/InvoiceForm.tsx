@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Dialog,
@@ -19,10 +19,12 @@ import useInvoices from "../../../hooks/useInvoices";
 const InvoiceForm = () => {
     const {
         handleInvoiceForm,
-        invoiceForm: { open, isNew, data, projectId }
+        invoiceForm: { open, isNew, data, projectId },
+        handlePrintInvoice
     } = useContext(ProjectsContext);
     const { saveInvoiceData } = useInvoices();
     const [invoiceData, setInvoiceData] = useState<InvoiceType>(DEFAULT_INVOICE);
+    const dialogRef = useRef(null);
 
     useEffect(() => {
         if (!isNew && data) {
@@ -67,6 +69,10 @@ const InvoiceForm = () => {
         setInvoiceData({...invoiceData})
     }
 
+    const handlePrint = () => {
+        projectId && handlePrintInvoice(invoiceData, projectId);
+    }
+
     const getSubtotal = useMemo(() => (
         invoiceData.items.reduce((total, item) => total + item.unitPrice * item.quantity, 0)
     ), [invoiceData]);
@@ -77,9 +83,9 @@ const InvoiceForm = () => {
     }
 
     return (
-        <Dialog open={open} handler={handleClickClose}>
+        <Dialog open={open} handler={handleClickClose} ref={dialogRef}>
             <div className="flex items-center justify-between">
-                <DialogHeader>{isNew ? 'New invoice' : 'Edit invoice'}</DialogHeader>
+                <DialogHeader>{isNew ? 'New invoice' : `Invoice number #${invoiceData.id} for project #${projectId}`}</DialogHeader>
                 <XMarkIcon className="mr-3 h-5 w-5" onClick={handleClickClose} />
             </div>
             <DialogBody divider>
@@ -140,6 +146,9 @@ const InvoiceForm = () => {
                 </div>
             </DialogBody>
             <DialogFooter className="space-x-2">
+                <Button variant="outlined" color="blue" onClick={handlePrint}>
+                    Print
+                </Button>
                 <Button variant="outlined" color="red" onClick={handleClickClose}>
                     Cancel
                 </Button>
