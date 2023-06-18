@@ -1,4 +1,4 @@
-import InvoiceForm from "../../components/containers/InvoiceForm/InvoiceForm";
+import InvoiceForm from "../../components/containers/InvoiceForm";
 import ProjectsList from "../../components/containers/ProjectsList";
 import ProjectsProvider from "../../store/ProjectsProvider";
 
