@@ -5,7 +5,7 @@ const getInvoiceIndexById = (invoices: InvoiceType[] = [], id: number = -1) => i
 
 const calculateAndSaveTotals = (project: ProjectType) => {
     let projectTotal = 0;
-    project.invoices.forEach((invoice) => {
+    project.invoices.forEach((invoice, index) => {
         const subTotalInvoice = invoice.items.reduce((total: number, value) => total + Number(value.quantity) * Number(value.unitPrice), 0);
         invoice.subTotal = subTotalInvoice;
         const taxRate = 1 + Number(invoice.taxPercentage) / 100;
@@ -14,6 +14,10 @@ const calculateAndSaveTotals = (project: ProjectType) => {
         projectTotal += totalAfterTaxesAndExtras;
     });
     project.total = projectTotal;
+}
+
+const ensureUniqueIds = (invoices: InvoiceType[]) => {
+    invoices = invoices.map((invoice, index) => ({ ...invoice, id: index }));
 }
 
 const deepCloneObject = (object: object) => JSON.parse(JSON.stringify(mockData.projects));
@@ -34,6 +38,7 @@ const mockServer = (url: string, method: string, body?: Record<string, any>): Pr
                 if (project && invoiceIndex >= 0) {
                     project.invoices[invoiceIndex] = { ...body['invoice'], id: invoiceId };
                     calculateAndSaveTotals(project);
+                    ensureUniqueIds(project.invoices);
                     return Promise.resolve({ data: deepCloneObject(project.invoices[invoiceIndex]) });
                 }
 

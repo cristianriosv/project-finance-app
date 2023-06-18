@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { DEFAULT_INVOICE } from "../../../constants/invoiceDefaultData";
+import { DEFAULT_INVOICE, DEFAULT_ITEM } from "../../../constants/invoiceDefaultData";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { formatDateString } from "../../../utils/dateUtils";
 import { formatNumber } from "../../../utils/numberUtils";
@@ -50,6 +50,14 @@ const InvoiceForm = () => {
         setInvoiceData({ ...invoiceData, items: invoiceData.items })
     }
 
+    const handleAddNewItem = () => {
+        const newItem = {
+            ...DEFAULT_ITEM,
+            id: invoiceData.items.length
+        }
+        setInvoiceData({...invoiceData, items: invoiceData.items.concat(newItem)})
+    }
+
     const getSubtotal = useMemo(() => (
         invoiceData.items.reduce((total, item) => total + item.unitPrice * item.quantity, 0)
     ), [invoiceData]);
@@ -76,6 +84,14 @@ const InvoiceForm = () => {
                             index={index}
                         />
                     ))}
+                    <Button
+                        variant="outlined"
+                        className="w-1/4 text-center flex items-center gap-3"
+                        onClick={handleAddNewItem}
+                    >
+                        <i className="fas fa-add" />
+                        Add new item
+                    </Button>
                     <div className="flex w-full justify-between">
                         <div className="flex flex-col w-1/3">
                                 <Input
