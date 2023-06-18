@@ -6,6 +6,7 @@ type ProjectsContextProps = {
     projects: ProjectType[];
     invoiceForm: InvoiceFormType;
     handleInvoiceForm: (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => void;
+    saveInvoiceData: (projectId: number, invoiceData: InvoiceType) => void;
 }
 
 type useProjectsStoreProps = {
@@ -17,11 +18,12 @@ const INITIAL_INVOICE_FORM: InvoiceFormType = { data: DEFAULT_INVOICE, isNew: fa
 export const ProjectsContext = createContext<ProjectsContextProps>({
     projects: [],
     invoiceForm: INITIAL_INVOICE_FORM,
-    handleInvoiceForm: () => null
+    handleInvoiceForm: () => null,
+    saveInvoiceData: () => null
 });
 
 const ProjectsProvider = ({ children }: useProjectsStoreProps) => {
-    const { projects } = useProjects();
+    const { projects, saveInvoiceData, loadProjects } = useProjects();
     const [invoiceForm, setInvoiceForm] = useState(INITIAL_INVOICE_FORM);
 
     const handleInvoiceForm = (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => {
@@ -31,12 +33,14 @@ const ProjectsProvider = ({ children }: useProjectsStoreProps) => {
             data: data || DEFAULT_INVOICE,
             projectId
         });
+        loadProjects();
     };
 
     const PROJECTS_STORE = {
         projects,
         invoiceForm,
-        handleInvoiceForm
+        handleInvoiceForm,
+        saveInvoiceData
     };
 
     return (

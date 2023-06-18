@@ -5,5 +5,5 @@ export const DEFAULT_INVOICE: InvoiceType = {
     items: [],
     total: 0,
     subTotal: 0,
-    dueDate: new Date()
+    dueDate: new Date().toISOString()
 }

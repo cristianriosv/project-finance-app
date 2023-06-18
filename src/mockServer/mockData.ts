@@ -10,15 +10,15 @@ export const mockData: MockDataProps = {
             id: 1,
             title: 'Project 1',
             client: 'Client 1',
-            total: 1056,
+            total: 1069.20,
             invoices: [
                 {
                     id: 1,
                     discountOrFee: -102,
                     taxPercentage: 10,
-                    total: 877.8,
+                    total: 891,
                     subTotal: 912,
-                    dueDate: new Date(),
+                    dueDate: new Date().toISOString(),
                     items: [
                         {
                             id: 1,
@@ -42,7 +42,7 @@ export const mockData: MockDataProps = {
                     taxPercentage: 10,
                     total: 178.2,
                     subTotal: 162,
-                    dueDate: new Date(),
+                    dueDate: new Date().toISOString(),
                     items: [
                         {
                             id: 1,

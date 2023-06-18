@@ -3,7 +3,7 @@ type ProjectType = {
     title: string;
     client: string;
     total: number;
-    invoices: InvoiceProps[];
+    invoices: InvoiceType[];
 }
 
 type InvoiceType = {
@@ -13,7 +13,7 @@ type InvoiceType = {
     taxPercentage: number;
     total: number;
     subTotal: number;
-    dueDate: Date;
+    dueDate: string;
 }
 
 type ItemType = {
@@ -26,7 +26,7 @@ type ItemType = {
 type ItemInvoiceType = Record<keyof ItemProps | string, number, UNITS>
 
 type InvoiceFormType = {
-    data?: InvoiceProps;
+    data?: InvoiceType;
     projectId?: number;
     isNew: boolean;
     open: boolean;

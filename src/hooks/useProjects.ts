@@ -3,19 +3,26 @@ import useRequest from "./useRequest";
 
 const useProjects = () => {
     const [projects, setProjects] = useState<ProjectType[]>([]);
-    const { getData } = useRequest();
+    const { getData, setData } = useRequest();
 
     const loadProjects = async () => {
-        const getProjects: ProjectType[] = await getData('projects');
-        setProjects(getProjects);
+        const getProjects: Record<'data', ProjectType[]> = await getData('projects');
+        setProjects(getProjects.data);
     };
+
+    const saveInvoiceData = async (projectId: number, invoiceData: InvoiceType) => {
+        await setData('invoices', { projectId, invoice: invoiceData });  
+        loadProjects();
+    }
 
     useEffect(() => {
         loadProjects();
     }, []);
 
     return {
-        projects
+        projects,
+        saveInvoiceData,
+        loadProjects
     }
 };
 
