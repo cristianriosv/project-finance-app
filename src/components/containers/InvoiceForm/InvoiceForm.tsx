@@ -6,17 +6,14 @@ import {
   DialogBody,
   DialogFooter,
   Input,
-  Option,
-  Select,
   Typography,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { DEFAULT_INVOICE } from "../../../constants/invoiceDefaultData";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
-import { UNITS } from "../../../constants/units";
 import { formatDateString } from "../../../utils/dateUtils";
-import InputNumber from "../../common/InputNumber/InputNumber";
 import { formatNumber } from "../../../utils/numberUtils";
+import InvoiceItemForm from "../../domains/InvoiceItemForm/InvoiceItemForm";
  
 const InvoiceForm = () => {
     const {
@@ -72,39 +69,12 @@ const InvoiceForm = () => {
                 <div className="flex flex-col gap-6">
                     Items:
                     {invoiceData.items.map((item, index) => (
-                        <div key={index} className="w-full flex items-center gap-1">
-                            <div className="w-2/5">
-                                <Input
-                                    label="Description"
-                                    value={item.title}
-                                    onChange={(e) => handleOnItemChange('title', index, e.target.value)}
-                                />
-                            </div>
-                            <div className="w-3/5 flex items-center gap-1">
-                                <InputNumber
-                                    isOnlyPositive
-                                    className="text-right"
-                                    label="Unit price"
-                                    value={item.unitPrice}
-                                    onChange={(value) => handleOnItemChange('unitPrice', index, value)}
-                                />
-                                <Select value={item.unit} label="Unit" onChange={(value) => handleOnItemChange('unit', index, value || UNITS.UN)}>
-                                    {Object.values(UNITS).map((unit) => (
-                                        <Option key={unit} value={unit}>{unit}</Option>
-                                    ))}
-                                </Select>
-                                <InputNumber
-                                    isOnlyPositive
-                                    className="text-right"
-                                    label="Quantity"
-                                    value={item.quantity}
-                                    onChange={(value) => handleOnItemChange('quantity', index, value)}
-                                />
-                                <div className="w-full">
-                                    <Typography className="text-right" variant="h6">$ {formatNumber(item.unitPrice * item.quantity || 0)}</Typography>
-                                </div>
-                            </div>
-                        </div>
+                        <InvoiceItemForm
+                            key={index}
+                            handleOnItemChange={handleOnItemChange}
+                            item={item}
+                            index={index}
+                        />
                     ))}
                     <div className="flex w-full justify-between">
                         <div className="flex flex-col w-1/3">
