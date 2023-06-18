@@ -31,3 +31,9 @@ type InvoiceFormType = {
     isNew: boolean;
     open: boolean;
 }
+
+type QuestionFormType = {
+    question?: string;
+    action?: () => void;
+    open: boolean;
+}

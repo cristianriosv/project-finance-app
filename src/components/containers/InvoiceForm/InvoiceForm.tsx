@@ -14,13 +14,14 @@ import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { formatDateString } from "../../../utils/dateUtils";
 import { formatNumber } from "../../../utils/numberUtils";
 import InvoiceItemForm from "../../domains/InvoiceItemForm/InvoiceItemForm";
+import useInvoices from "../../../hooks/useInvoices";
  
 const InvoiceForm = () => {
     const {
         handleInvoiceForm,
-        invoiceForm: { open, isNew, data, projectId },
-        saveInvoiceData
+        invoiceForm: { open, isNew, data, projectId }
     } = useContext(ProjectsContext);
+    const { saveInvoiceData } = useInvoices();
     const [invoiceData, setInvoiceData] = useState<InvoiceType>(DEFAULT_INVOICE);
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { formatNumber } from "../../../utils/numberUtils";
 import { DEFAULT_INVOICE } from "../../../constants/invoiceDefaultData";
+import useInvoices from "../../../hooks/useInvoices";
 
 type InvoicesListProps = {
     invoices: InvoiceType[];
@@ -12,7 +13,8 @@ type InvoicesListProps = {
 }
 
 const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
-    const { handleInvoiceForm } = useContext(ProjectsContext);
+    const { handleInvoiceForm, handleQuestionForm } = useContext(ProjectsContext);
+    const { deleteInvoice } = useInvoices();
     const TABLE_HEAD = ["id", "Sub total", "Discount or Fee", "Tax", "Total"];
     const tableCellClassName = "p-4 border-b border-blue-gray-50";
 
@@ -22,6 +24,16 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
 
     const handleAddNewInvoice = () => {
         handleInvoiceForm(true, true, DEFAULT_INVOICE, projectId);
+    }
+
+    const handleDeleteInvoice = (invoiceId: number) => {
+        handleQuestionForm(
+            true,
+            `You are going to delete the invoice number #${invoiceId} from project number #${projectId}`,
+            () => {
+                deleteInvoice(projectId, invoiceId);
+            }
+        );
     }
 
     return(
@@ -68,7 +80,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                                     <IconButton size="sm" variant="outlined">
                                         <i className="fas fa-print" />
                                     </IconButton>
-                                    <IconButton size="sm" variant="outlined">
+                                    <IconButton size="sm" variant="outlined" onClick={() => handleDeleteInvoice(invoice.id)}>
                                         <i className="fas fa-trash" />
                                     </IconButton>
                                 </div>

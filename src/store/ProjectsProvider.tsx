@@ -5,8 +5,9 @@ import { DEFAULT_INVOICE } from "../constants/invoiceDefaultData";
 type ProjectsContextProps = {
     projects: ProjectType[];
     invoiceForm: InvoiceFormType;
+    questionForm: QuestionFormType;
     handleInvoiceForm: (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => void;
-    saveInvoiceData: (projectId: number, invoiceData: InvoiceType, isNew?: boolean) => void;
+    handleQuestionForm: (open: boolean, question?: string, action?: () => void) => void;
 }
 
 type useProjectsStoreProps = {
@@ -14,17 +15,20 @@ type useProjectsStoreProps = {
 }
 
 const INITIAL_INVOICE_FORM: InvoiceFormType = { data: DEFAULT_INVOICE, isNew: false, open: false };
+const INITIAL_QUESTION_FORM: QuestionFormType = { open: false };
 
 export const ProjectsContext = createContext<ProjectsContextProps>({
     projects: [],
     invoiceForm: INITIAL_INVOICE_FORM,
+    questionForm: INITIAL_QUESTION_FORM,
     handleInvoiceForm: () => null,
-    saveInvoiceData: () => null
+    handleQuestionForm: () => null
 });
 
 const ProjectsProvider = ({ children }: useProjectsStoreProps) => {
-    const { projects, saveInvoiceData, loadProjects } = useProjects();
+    const { projects, loadProjects } = useProjects();
     const [invoiceForm, setInvoiceForm] = useState(INITIAL_INVOICE_FORM);
+    const [questionForm, setQuestionForm] = useState(INITIAL_QUESTION_FORM);
 
     const handleInvoiceForm = (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => {
         setInvoiceForm({
@@ -36,11 +40,21 @@ const ProjectsProvider = ({ children }: useProjectsStoreProps) => {
         loadProjects();
     };
 
+    const handleQuestionForm = (open: boolean, question?: string, action?: () => void) => {
+        setQuestionForm({
+            open,
+            question: question,
+            action
+        });
+        loadProjects();
+    };
+
     const PROJECTS_STORE = {
         projects,
         invoiceForm,
+        questionForm,
         handleInvoiceForm,
-        saveInvoiceData
+        handleQuestionForm
     };
 
     return (

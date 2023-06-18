@@ -31,11 +31,13 @@ const mockServer = (url: string, method: string, requestBody?: Record<string, an
     }
     if (method === 'POST' && body) {
         let project;
+        let invoiceId;
+        let invoiceIndex;
         switch (url) {
             case 'invoices':
                 project = getProjectById(body['projectId']);
-                const invoiceId = body['invoice'].id;
-                const invoiceIndex = getInvoiceIndexById(project?.invoices, invoiceId);
+                invoiceId = body['invoice'].id;
+                invoiceIndex = getInvoiceIndexById(project?.invoices, invoiceId);
                 if (project && invoiceIndex >= 0) {
                     project.invoices[invoiceIndex] = { ...body['invoice'], id: invoiceId };
                     calculateAndSaveTotals(project);
@@ -51,7 +53,16 @@ const mockServer = (url: string, method: string, requestBody?: Record<string, an
                     return Promise.resolve({ data: deepCloneObject(project.invoices) });
                 }
                 return Promise.resolve(null);
-
+            case 'invoices/delete':
+                project = getProjectById(body['projectId']);
+                invoiceId = body['invoiceId'];
+                invoiceIndex = getInvoiceIndexById(project?.invoices, invoiceId);
+                if (project && invoiceIndex >= 0) {
+                    project.invoices.splice(invoiceIndex, 1);
+                    calculateAndSaveTotals(project);
+                    return Promise.resolve({ data: deepCloneObject(project.invoices) });
+                };
+                return Promise.resolve(null);
         }
     }
     return Promise.resolve(null);

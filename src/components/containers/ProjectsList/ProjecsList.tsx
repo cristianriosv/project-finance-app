@@ -15,24 +15,6 @@ const ProjectsList = () => {
         setOpenedProject(openedProject === id ? null : id);
     }
 
-    const renderTableRow = (project: ProjectType, index: number) => {
-        const isLast = index === projects.length - 1;
-        const isOpened = project.id === openedProject;
-        return (
-            <ProjectTableRow
-                id={project.id}
-                client={project.client}
-                title={project.title}
-                total={formatNumber(project.total)}
-                isLast={isLast}
-                isOpened={isOpened}
-                handleOpen={handleOpen}
-                key={project.id}
-                invoices={project.invoices}
-            />
-        )
-    };
-
     return (
         <Card className="h-full w-full">
             <table className="w-full min-w-max table-auto text-left">
@@ -59,7 +41,23 @@ const ProjectsList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {projects.map((project, index) => renderTableRow(project, index))}
+                    {projects.map((project, index) => {
+                        const isLast = index === projects.length - 1;
+                        const isOpened = project.id === openedProject;
+                        return (
+                            <ProjectTableRow
+                                id={project.id}
+                                client={project.client}
+                                title={project.title}
+                                total={formatNumber(project.total)}
+                                isLast={isLast}
+                                isOpened={isOpened}
+                                handleOpen={handleOpen}
+                                key={project.id}
+                                invoices={project.invoices}
+                            />
+                        )
+                    })}
                 </tbody>
             </table>
         </Card>
