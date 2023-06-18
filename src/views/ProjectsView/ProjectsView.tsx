@@ -1,11 +1,13 @@
+import InvoiceForm from "../../components/containers/InvoiceForm/InvoiceForm";
 import ProjectsList from "../../components/containers/ProjectsList";
-import useProjects from "../../hooks/useProjects";
+import ProjectsProvider from "../../store/ProjectsProvider";
 
 const ProjectsView = () => {
-    const { projects } = useProjects();
-    
     return (
-        <ProjectsList projects={projects} />
+        <ProjectsProvider>
+            <InvoiceForm />
+            <ProjectsList />
+        </ProjectsProvider>
     );
 };
 
