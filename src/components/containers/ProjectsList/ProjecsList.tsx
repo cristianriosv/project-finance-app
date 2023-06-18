@@ -1,30 +1,18 @@
-import { useState } from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { useState, useContext } from "react";
+import { Card } from "@material-tailwind/react";
 import ProjectTableRow from "../../domains/ProjectTableRow/ProjectTableRow";
+import TableHead from "../../common/TableHead/TableHead";
+import { ProjectsContext } from "../../../store/ProjectsProvider";
 
-type ProjectsListProps = {
-    projects: ProjectProps[]
-}
 
-const ProjectsList = ({ projects }: ProjectsListProps) => {
-    const TABLE_HEAD = ["id", "Client", "Project title", "Due date", "Total", ""];
+const ProjectsList = () => {
+    const TABLE_HEAD = ["id", "Client", "Project title", "Total", ""];
     const [openedProject, setOpenedProject] = useState<number | null>(null);
+    const { projects } = useContext(ProjectsContext)
 
     const handleOpen = (id: number) => {
         setOpenedProject(openedProject === id ? null : id);
     }
-
-    const renderTableHead = (headName: string) => (
-        <th key={headName} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-            <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal leading-none opacity-70"
-            >
-                {headName}
-            </Typography>
-        </th>
-    );
 
     const renderTableRow = (project: ProjectProps, index: number) => {
         const isLast = index === projects.length - 1;
@@ -34,23 +22,23 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
                 id={project.id}
                 client={project.client}
                 title={project.title}
-                dueDate={project.dueDate}
                 total={project.total}
                 isLast={isLast}
                 isOpened={isOpened}
                 handleOpen={handleOpen}
                 key={project.id}
+                invoices={project.invoices}
             />
         )
     };
 
     return (
-        <Card className="overflow-scroll h-full w-full">
+        <Card className="h-full w-full">
             <table className="w-full min-w-max table-auto text-left">
                 <thead>
-                <tr>
-                    {TABLE_HEAD.map((head) => renderTableHead(head))}
-                </tr>
+                    <tr>
+                        {TABLE_HEAD.map((head) => <TableHead key={head} headName={head} />)}
+                    </tr>
                 </thead>
                 <tbody>
                     {projects.map((project, index) => renderTableRow(project, index))}
