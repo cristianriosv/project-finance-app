@@ -1,16 +1,18 @@
-import { Input, Select, Typography, Option } from "@material-tailwind/react";
+import { Input, Select, Typography, Option, IconButton } from "@material-tailwind/react";
 import InputNumber from "../../common/InputNumber";
 import { formatNumber } from "../../../utils/numberUtils";
 import { UNITS } from "../../../constants/units";
 
 type InvoiceItemFormProps = {
     handleOnItemChange: (field: string, index: number, value: string | number) => void;
+    handleRemoveItem: (index: number) => void;
     item: ItemType;
     index: number;
 }
 
 const InvoiceItemForm = ({
     handleOnItemChange,
+    handleRemoveItem,
     item,
     index
 }: InvoiceItemFormProps) => (
@@ -42,8 +44,11 @@ const InvoiceItemForm = ({
                 value={item.quantity}
                 onChange={(value) => handleOnItemChange('quantity', index, value)}
             />
-            <div className="w-full">
+            <div className="w-full flex gap-1 pl-1 justify-end items-center">
                 <Typography className="text-right" variant="h6">$ {formatNumber(item.unitPrice * item.quantity || 0)}</Typography>
+                <IconButton size="sm" variant="text" onClick={() => handleRemoveItem(index)}>
+                    <i className="fas fa-close" />
+                </IconButton>
             </div>
         </div>
     </div>

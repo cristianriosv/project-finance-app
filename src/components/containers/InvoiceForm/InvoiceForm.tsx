@@ -58,6 +58,14 @@ const InvoiceForm = () => {
         setInvoiceData({...invoiceData, items: invoiceData.items.concat(newItem)})
     }
 
+    const handleRemoveItemAt = (index: number) => {
+        if (!invoiceData.items[index]) {
+            return;
+        }
+        invoiceData.items.splice(index, 1);
+        setInvoiceData({...invoiceData})
+    }
+
     const getSubtotal = useMemo(() => (
         invoiceData.items.reduce((total, item) => total + item.unitPrice * item.quantity, 0)
     ), [invoiceData]);
@@ -80,6 +88,7 @@ const InvoiceForm = () => {
                         <InvoiceItemForm
                             key={index}
                             handleOnItemChange={handleOnItemChange}
+                            handleRemoveItem={handleRemoveItemAt}
                             item={item}
                             index={index}
                         />
