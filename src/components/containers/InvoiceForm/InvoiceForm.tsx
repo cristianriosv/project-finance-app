@@ -102,10 +102,10 @@ const InvoiceForm = () => {
                     ))}
                     <Button
                         variant="outlined"
-                        className="w-1/4 text-center flex items-center gap-3"
+                        className="w-2/4 text-center"
                         onClick={handleAddNewItem}
                     >
-                        <i className="fas fa-add" />
+                        <i className="fas fa-add mr-1" />
                         Add new item
                     </Button>
                     <div className="flex w-full justify-between">
@@ -146,9 +146,11 @@ const InvoiceForm = () => {
                 </div>
             </DialogBody>
             <DialogFooter className="space-x-2">
-                <Button variant="outlined" color="blue" onClick={handlePrint}>
-                    Print
-                </Button>
+                {!isNew && (
+                    <Button variant="outlined" color="blue" onClick={handlePrint}>
+                        Print
+                    </Button>
+                )}
                 <Button variant="outlined" color="red" onClick={handleClickClose}>
                     Cancel
                 </Button>

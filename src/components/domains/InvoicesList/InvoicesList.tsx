@@ -17,7 +17,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
     const { handleInvoiceForm, handleQuestionForm, handlePrintInvoice } = useContext(ProjectsContext);
     const { deleteInvoice } = useInvoices();
     const TABLE_HEAD = ["id", "Sub total", "Discount or Fee", "Tax", "Total"];
-    const tableCellClassName = "p-4 border-t border-blue-gray-50";
+    const tableCellClassName = "p-2 border-b border-l border-blue-gray-50 bg-white";
 
     const handleClickEditInvoice = (invoice: InvoiceType) => {
         handleInvoiceForm(true, false, invoice, projectId);
@@ -39,21 +39,23 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
 
     return(
         <>
-            <table className="w-11/12 min-w-max table-auto text-left">
+            <table className="w-11/12 min-w-max table-auto text-left my-3 mr-2">
                 <thead>
                     <tr>
-                        {TABLE_HEAD.map((head) => <TableHead key={head} headName={head} />)}
+                        {TABLE_HEAD.map((head) => <TableHead variant="light" key={head} headName={head} />)}
                         <TableHead
+                            size="sm"
+                            variant="light"
                             headName={
                                 <Button
                                     size="sm"
                                     variant="outlined"
-                                    className="w-full m-0 text-center flex items-center gap-1"
+                                    className="w-full m-0 text-center flex items-center justify-center gap-1 py-1 px-2"
                                     onClick={handleAddNewInvoice}
                                 >
                                     <i className="fas fa-add" />
                                     <Typography variant="small">
-                                        Add new invoice
+                                        Add invoice
                                     </Typography>
                                 </Button>
                             }
@@ -63,11 +65,12 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                 <tbody>
                     {invoices.length === 0 && (
                         <tr>
-                            <td colSpan={7}>
-                                <Typography variant="h6" className="w-full text-center">
-                                    No invoices for project
+                            <td colSpan={5} className="border-l bg-white">
+                                <Typography variant="h6" className="w-full text-center p-3">
+                                    No invoices for this project
                                 </Typography>
                             </td>
+                            <td width={GENERAL_ACTION_COLUMN_WIDTH} className="bg-white"></td>
                         </tr>
                     )}
                     {invoices.map((invoice) => (
@@ -78,7 +81,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                             <TableCell className={tableCellClassName}>%{invoice.taxPercentage}</TableCell>
                             <TableCell className={tableCellClassName}>${formatNumber(invoice.total)}</TableCell>
                             <TableCell className={tableCellClassName} width={GENERAL_ACTION_COLUMN_WIDTH}>
-                                <div className="flex gap-4">
+                                <div className="flex gap-4 justify-center">
                                     <IconButton size="sm" variant="outlined" onClick={() => handleClickEditInvoice(invoice)}>
                                         <i className="fas fa-pen-to-square" />
                                     </IconButton>

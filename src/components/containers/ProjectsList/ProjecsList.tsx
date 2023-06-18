@@ -1,13 +1,17 @@
 import { useState, useContext } from "react";
-import { Button, Card, Typography } from "@material-tailwind/react";
+import { Card } from "@material-tailwind/react";
 import ProjectTableRow from "../../domains/ProjectTableRow/ProjectTableRow";
 import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { formatNumber } from "../../../utils/numberUtils";
 
 
-const ProjectsList = () => {
-    const TABLE_HEAD = ["id", "Client", "Project title", "Total", ""];
+type ProjectListProps = {
+    className?: string;
+}
+
+const ProjectsList = ({ className }: ProjectListProps) => {
+    const TABLE_HEAD = ["id", "Project title", "Client", "Total", ""];
     const [openedProject, setOpenedProject] = useState<number | null>(null);
     const { projects } = useContext(ProjectsContext)
 
@@ -16,7 +20,7 @@ const ProjectsList = () => {
     }
 
     return (
-        <Card className="h-full w-full">
+        <Card className={`overflow-scroll h-full w-full ${className}`}>
             <table className="w-full min-w-max table-auto text-left">
                 <thead>
                     <tr>
@@ -25,7 +29,6 @@ const ProjectsList = () => {
                 </thead>
                 <tbody>
                     {projects.map((project, index) => {
-                        const isLast = index === projects.length - 1;
                         const isOpened = project.id === openedProject;
                         return (
                             <ProjectTableRow
@@ -33,7 +36,6 @@ const ProjectsList = () => {
                                 client={project.client}
                                 title={project.title}
                                 total={formatNumber(project.total)}
-                                isLast={isLast}
                                 isOpened={isOpened}
                                 handleOpen={handleOpen}
                                 key={project.id}
