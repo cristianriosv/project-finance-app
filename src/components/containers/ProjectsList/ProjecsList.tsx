@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Card, IconButton, Typography } from "@material-tailwind/react";
+import { Button, Card, Typography } from "@material-tailwind/react";
 import ProjectTableRow from "../../domains/ProjectTableRow/ProjectTableRow";
 import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
@@ -23,19 +23,17 @@ const ProjectsList = () => {
                         {TABLE_HEAD.map((head, index) => <TableHead key={index} headName={head} />)}
                         <TableHead
                             headName={
-                                <div className="flex gap-2 items-center">
+                                <Button
+                                    size="sm"
+                                    variant="outlined"
+                                    className="w-full m-0 text-center flex items-center gap-1"
+                                    // onClick={handleAddNewInvoice}
+                                >
+                                    <i className="fas fa-add" />
                                     <Typography variant="small">
                                         Add new project
                                     </Typography>
-                                    <IconButton
-                                        size="sm"
-                                        variant="outlined"
-                                        className="w-full m-0 text-center flex items-center gap-1"
-                                        // onClick={handleAddNewItem}
-                                    >
-                                        <i className="fas fa-add" />
-                                    </IconButton>
-                                </div>
+                                </Button>
                             }
                         />
                     </tr>

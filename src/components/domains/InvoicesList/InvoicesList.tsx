@@ -6,6 +6,7 @@ import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { formatNumber } from "../../../utils/numberUtils";
 import { DEFAULT_INVOICE } from "../../../constants/invoiceDefaultData";
 import useInvoices from "../../../hooks/useInvoices";
+import { GENERAL_ACTION_COLUMN_WIDTH } from "../../../constants/tables";
 
 type InvoicesListProps = {
     invoices: InvoiceType[];
@@ -16,7 +17,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
     const { handleInvoiceForm, handleQuestionForm } = useContext(ProjectsContext);
     const { deleteInvoice } = useInvoices();
     const TABLE_HEAD = ["id", "Sub total", "Discount or Fee", "Tax", "Total"];
-    const tableCellClassName = "p-4 border-b border-blue-gray-50";
+    const tableCellClassName = "p-4 border-t border-blue-gray-50";
 
     const handleClickEditInvoice = (invoice: InvoiceType) => {
         handleInvoiceForm(true, false, invoice, projectId);
@@ -38,7 +39,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
 
     return(
         <>
-            <table className="w-4/5 min-w-max table-auto text-left">
+            <table className="w-11/12 min-w-max table-auto text-left">
                 <thead>
                     <tr>
                         {TABLE_HEAD.map((head) => <TableHead key={head} headName={head} />)}
@@ -62,7 +63,11 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                 <tbody>
                     {invoices.length === 0 && (
                         <tr>
-                            <td colSpan={7}>No invoices</td>
+                            <td colSpan={7}>
+                                <Typography variant="h6" className="w-full text-center">
+                                    No invoices for project
+                                </Typography>
+                            </td>
                         </tr>
                     )}
                     {invoices.map((invoice) => (
@@ -72,7 +77,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                             <TableCell className={tableCellClassName}>$ {invoice.discountOrFee}</TableCell>
                             <TableCell className={tableCellClassName}>%{invoice.taxPercentage}</TableCell>
                             <TableCell className={tableCellClassName}>${formatNumber(invoice.total)}</TableCell>
-                            <TableCell className={tableCellClassName} width={220}>
+                            <TableCell className={tableCellClassName} width={GENERAL_ACTION_COLUMN_WIDTH}>
                                 <div className="flex gap-4">
                                     <IconButton size="sm" variant="outlined" onClick={() => handleClickEditInvoice(invoice)}>
                                         <i className="fas fa-pen-to-square" />

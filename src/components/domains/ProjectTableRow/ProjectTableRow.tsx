@@ -1,6 +1,7 @@
 import { Accordion, AccordionBody } from "@material-tailwind/react";
 import TableCell from "../../common/TableCell";
 import InvoicesList from "../InvoicesList/InvoicesList";
+import { GENERAL_ACTION_COLUMN_WIDTH } from "../../../constants/tables";
 
 type ProjectTableRowProps = Pick<ProjectType, 'id' | 'client' | 'title' | 'total' | 'invoices'> & {
     handleOpen: (id: number) => void;
@@ -35,7 +36,7 @@ const ProjectTableRow = ({
                 <TableCell className={className}>
                     $ {total}
                 </TableCell>
-                <TableCell className={className}>
+                <TableCell className={className} width={GENERAL_ACTION_COLUMN_WIDTH}>
                     <i className="fas fa-chevron-up" style={{ transform: iconOpenStyle }} />
                 </TableCell>
             </tr>

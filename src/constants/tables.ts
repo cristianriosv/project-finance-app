@@ -1,0 +1,1 @@
+export const GENERAL_ACTION_COLUMN_WIDTH = 220;
