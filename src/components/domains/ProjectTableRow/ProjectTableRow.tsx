@@ -42,7 +42,7 @@ const ProjectTableRow = ({
             <tr>
                 <td colSpan={6}>
                     <Accordion open={isOpened}>
-                        <AccordionBody className="py-0">
+                        <AccordionBody className="py-0 flex justify-end">
                             <InvoicesList invoices={invoices} projectId={id} />
                         </AccordionBody>
                     </Accordion>
