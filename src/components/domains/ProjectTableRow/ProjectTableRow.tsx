@@ -1,7 +1,8 @@
 import { Accordion, AccordionBody } from "@material-tailwind/react";
 import TableCell from "../../common/TableCell";
+import InvoicesList from "../InvoicesList/InvoicesList";
 
-type ProjectTableRowProps = Pick<ProjectProps, 'id' | 'client' | 'title' | 'dueDate' | 'total'> & {
+type ProjectTableRowProps = Pick<ProjectProps, 'id' | 'client' | 'title' | 'total' | 'invoices'> & {
     handleOpen: (id: number) => void;
     isOpened: boolean;
     isLast: boolean;
@@ -11,11 +12,11 @@ const ProjectTableRow = ({
     id,
     client,
     title,
-    dueDate,
     total,
     isLast,
     isOpened,
-    handleOpen
+    handleOpen,
+    invoices
 }: ProjectTableRowProps) => {
     const className = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     const iconOpenStyle = `rotate(${isOpened ? 180 : 0}deg)`;
@@ -32,9 +33,6 @@ const ProjectTableRow = ({
                     {title}
                 </TableCell>
                 <TableCell className={className}>
-                    {dueDate.toString()}
-                </TableCell>
-                <TableCell className={className}>
                     $ {total}
                 </TableCell>
                 <TableCell className={className}>
@@ -44,8 +42,8 @@ const ProjectTableRow = ({
             <tr>
                 <td colSpan={6}>
                     <Accordion open={isOpened}>
-                        <AccordionBody>
-                            List of invoices
+                        <AccordionBody className="py-0">
+                            <InvoicesList invoices={invoices} projectId={id} />
                         </AccordionBody>
                     </Accordion>
                 </td>
