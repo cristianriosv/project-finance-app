@@ -3,6 +3,7 @@ import { Card } from "@material-tailwind/react";
 import ProjectTableRow from "../../domains/ProjectTableRow/ProjectTableRow";
 import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
+import { formatNumber } from "../../../utils/numberUtils";
 
 
 const ProjectsList = () => {
@@ -22,7 +23,7 @@ const ProjectsList = () => {
                 id={project.id}
                 client={project.client}
                 title={project.title}
-                total={project.total}
+                total={formatNumber(project.total)}
                 isLast={isLast}
                 isOpened={isOpened}
                 handleOpen={handleOpen}

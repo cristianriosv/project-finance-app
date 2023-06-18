@@ -1,7 +1,7 @@
-export const formatDateToString = (date: Date) => {
+export const formatDateString = (date: string) => {
     try {
-        return date?.toISOString().split('T')[0];
+        return date?.split('T')[0];
     } catch(_) {
-        return undefined;
+        return '';
     }
 }

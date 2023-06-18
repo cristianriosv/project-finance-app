@@ -14,22 +14,28 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { DEFAULT_INVOICE } from "../../../constants/invoiceDefaultData";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
 import { UNITS } from "../../../constants/units";
-import { formatDateToString } from "../../../utils/dateUtils";
+import { formatDateString } from "../../../utils/dateUtils";
 import InputNumber from "../../common/InputNumber/InputNumber";
 import { formatNumber } from "../../../utils/numberUtils";
  
 const InvoiceForm = () => {
-    const { handleInvoiceForm, invoiceForm: { open, isNew, data } } = useContext(ProjectsContext);
+    const {
+        handleInvoiceForm,
+        invoiceForm: { open, isNew, data, projectId },
+        saveInvoiceData
+    } = useContext(ProjectsContext);
     const [invoiceData, setInvoiceData] = useState<InvoiceType>(DEFAULT_INVOICE);
+
     useEffect(() => {
         if (!isNew && data) {
-            setInvoiceData(data);
+            setInvoiceData({...data});
         } else {
-            setInvoiceData(DEFAULT_INVOICE);
+            setInvoiceData({...DEFAULT_INVOICE});
         }
     }, [open, isNew, data]);
 
     const handleClickSave = () => {
+        projectId && saveInvoiceData(projectId, invoiceData);
         handleInvoiceForm(false, false);
     }
 
@@ -53,9 +59,9 @@ const InvoiceForm = () => {
 
     const getTotal = () => {
         const withDescountOrFee = getSubtotal + Number(invoiceData.discountOrFee);
-        return withDescountOrFee + (withDescountOrFee) * invoiceData.taxPercentage / 100;
+        return withDescountOrFee + (withDescountOrFee) * Number(invoiceData.taxPercentage) / 100;
     }
-    
+
     return (
         <Dialog open={open} handler={handleClickClose}>
             <div className="flex items-center justify-between">
@@ -106,8 +112,8 @@ const InvoiceForm = () => {
                                     type="date"
                                     className="text-right"
                                     label="Due date"
-                                    value={formatDateToString(invoiceData.dueDate)}
-                                    onChange={(e) => handleOnFormChange('dueDate', new Date(e.target.value))}
+                                    value={formatDateString(invoiceData.dueDate)}
+                                    onChange={(e) => handleOnFormChange('dueDate', e.target.value)}
                                 />
                         </div>
                         <div className="flex flex-col w-1/3 gap-4">

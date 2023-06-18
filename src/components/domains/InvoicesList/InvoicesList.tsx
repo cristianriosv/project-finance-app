@@ -3,6 +3,7 @@ import { IconButton } from "@material-tailwind/react";
 import TableCell from "../../common/TableCell/TableCell";
 import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
+import { formatNumber } from "../../../utils/numberUtils";
 
 type InvoicesListProps = {
     invoices: InvoiceType[];
@@ -32,10 +33,10 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
                             <tr key={invoice.id}>
                                 <TableCell>{}</TableCell>
                                 <TableCell className={tableCellClassName}>{invoice.id}</TableCell>
-                                <TableCell className={tableCellClassName}>$ {invoice.subTotal}</TableCell>
+                                <TableCell className={tableCellClassName}>$ {formatNumber(invoice.subTotal)}</TableCell>
                                 <TableCell className={tableCellClassName}>$ {invoice.discountOrFee}</TableCell>
                                 <TableCell className={tableCellClassName}>%{invoice.taxPercentage}</TableCell>
-                                <TableCell className={tableCellClassName}>${invoice.total}</TableCell>
+                                <TableCell className={tableCellClassName}>${formatNumber(invoice.total)}</TableCell>
                                 <TableCell className={tableCellClassName}>
                                     <div className="flex gap-4">
                                         <IconButton size="sm" variant="outlined" onClick={() => handleClickEditInvoice(invoice)}>
