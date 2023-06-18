@@ -32,7 +32,7 @@ const InvoiceForm = () => {
     }, [open, isNew, data]);
 
     const handleClickSave = () => {
-        projectId && saveInvoiceData(projectId, invoiceData);
+        projectId && saveInvoiceData(projectId, invoiceData, isNew);
         handleInvoiceForm(false, false);
     }
 

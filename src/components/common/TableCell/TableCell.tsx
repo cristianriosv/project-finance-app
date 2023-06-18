@@ -4,10 +4,11 @@ import { ReactNode } from "react";
 type TableCellProps = {
     children: ReactNode | string;
     className?: string;
+    width?: number | string;
 }
 
-const TableCell = ({ children, className }: TableCellProps) => (
-    <td className={className}>
+const TableCell = ({ children, className, width }: TableCellProps) => (
+    <td className={className} width={width}>
         {typeof children === 'string' ?
             <Typography variant="small" color="blue-gray" className="font-normal">
                 {children}

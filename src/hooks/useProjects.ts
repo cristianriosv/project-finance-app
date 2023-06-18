@@ -10,8 +10,12 @@ const useProjects = () => {
         setProjects(getProjects.data);
     };
 
-    const saveInvoiceData = async (projectId: number, invoiceData: InvoiceType) => {
-        await setData('invoices', { projectId, invoice: invoiceData });  
+    const saveInvoiceData = async (projectId: number, invoiceData: InvoiceType, isNew = false) => {
+        if (isNew) {
+            await setData('invoices/new', { projectId, invoice: invoiceData });
+        } else {
+            await setData('invoices', { projectId, invoice: invoiceData });
+        }
         loadProjects();
     }
 

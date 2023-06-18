@@ -6,7 +6,7 @@ type ProjectsContextProps = {
     projects: ProjectType[];
     invoiceForm: InvoiceFormType;
     handleInvoiceForm: (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => void;
-    saveInvoiceData: (projectId: number, invoiceData: InvoiceType) => void;
+    saveInvoiceData: (projectId: number, invoiceData: InvoiceType, isNew?: boolean) => void;
 }
 
 type useProjectsStoreProps = {
