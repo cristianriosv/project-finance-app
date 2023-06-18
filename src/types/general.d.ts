@@ -2,23 +2,32 @@ type ProjectProps = {
     id: number;
     title: string;
     client: string;
-    dueDate: Date;
     total: number;
     invoices: InvoiceProps[];
 }
 
 type InvoiceProps = {
     id: number;
-    title: string;
     items: ItemInvoiceProps[];
     discountOrFee: number;
     taxPercentage: number;
+    total: number;
+    subTotal: number;
+    dueDate: Date;
 }
 
-type ItemInvoiceProps = {
+type ItemProps = {
     id: number;
     title: string;
     quantity: number;
     unit: UNITS;
     unitPrice: number;
+}
+type ItemInvoiceProps = Record<keyof ItemProps | string, number, UNITS>
+
+type InvoiceFormProps = {
+    data?: InvoiceProps;
+    projectId?: number;
+    isNew: boolean;
+    open: boolean;
 }
