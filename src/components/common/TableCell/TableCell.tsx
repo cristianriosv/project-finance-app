@@ -2,15 +2,19 @@ import { Typography } from "@material-tailwind/react";
 import { ReactNode } from "react";
 
 type TableCellProps = {
-    children: ReactNode;
-    className: string;
+    children: ReactNode | string;
+    className?: string;
 }
 
 const TableCell = ({ children, className }: TableCellProps) => (
     <td className={className}>
-        <Typography variant="small" color="blue-gray" className="font-normal">
-            {children}
-        </Typography>
+        {typeof children === 'string' ?
+            <Typography variant="small" color="blue-gray" className="font-normal">
+                {children}
+            </Typography>
+            :
+            <>{children}</>
+        }
     </td>
 );
 
