@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import useRequest from "./useRequest";
 
 const useProjects = () => {
-    const [projects, setProjects] = useState<ProjectProps[]>([]);
+    const [projects, setProjects] = useState<ProjectType[]>([]);
     const { getData } = useRequest();
 
     const loadProjects = async () => {
-        const getProjects: ProjectProps[] = await getData('projects');
+        const getProjects: ProjectType[] = await getData('projects');
         setProjects(getProjects);
     };
 

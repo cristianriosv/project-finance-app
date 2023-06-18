@@ -1,7 +1,7 @@
 import { UNITS } from "../constants/units"
 
 type MockDataProps = {
-    projects: ProjectProps[]
+    projects: ProjectType[]
 }
 
 export const mockData: MockDataProps = {

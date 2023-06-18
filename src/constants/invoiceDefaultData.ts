@@ -1,4 +1,4 @@
-export const DEFAULT_INVOICE: InvoiceProps = {
+export const DEFAULT_INVOICE: InvoiceType = {
     id: -1,
     discountOrFee: 0,
     taxPercentage: 0,

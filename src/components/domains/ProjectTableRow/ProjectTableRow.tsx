@@ -2,7 +2,7 @@ import { Accordion, AccordionBody } from "@material-tailwind/react";
 import TableCell from "../../common/TableCell";
 import InvoicesList from "../InvoicesList/InvoicesList";
 
-type ProjectTableRowProps = Pick<ProjectProps, 'id' | 'client' | 'title' | 'total' | 'invoices'> & {
+type ProjectTableRowProps = Pick<ProjectType, 'id' | 'client' | 'title' | 'total' | 'invoices'> & {
     handleOpen: (id: number) => void;
     isOpened: boolean;
     isLast: boolean;

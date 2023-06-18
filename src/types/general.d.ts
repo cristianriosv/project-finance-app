@@ -1,4 +1,4 @@
-type ProjectProps = {
+type ProjectType = {
     id: number;
     title: string;
     client: string;
@@ -6,7 +6,7 @@ type ProjectProps = {
     invoices: InvoiceProps[];
 }
 
-type InvoiceProps = {
+type InvoiceType = {
     id: number;
     items: ItemInvoiceProps[];
     discountOrFee: number;
@@ -16,16 +16,16 @@ type InvoiceProps = {
     dueDate: Date;
 }
 
-type ItemProps = {
+type ItemType = {
     id: number;
     title: string;
     quantity: number;
     unit: UNITS;
     unitPrice: number;
 }
-type ItemInvoiceProps = Record<keyof ItemProps | string, number, UNITS>
+type ItemInvoiceType = Record<keyof ItemProps | string, number, UNITS>
 
-type InvoiceFormProps = {
+type InvoiceFormType = {
     data?: InvoiceProps;
     projectId?: number;
     isNew: boolean;

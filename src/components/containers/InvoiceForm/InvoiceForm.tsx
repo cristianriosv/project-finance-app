@@ -20,7 +20,7 @@ import { formatNumber } from "../../../utils/numberUtils";
  
 const InvoiceForm = () => {
     const { handleInvoiceForm, invoiceForm: { open, isNew, data } } = useContext(ProjectsContext);
-    const [invoiceData, setInvoiceData] = useState<InvoiceProps>(DEFAULT_INVOICE);
+    const [invoiceData, setInvoiceData] = useState<InvoiceType>(DEFAULT_INVOICE);
     useEffect(() => {
         if (!isNew && data) {
             setInvoiceData(data);
@@ -42,7 +42,7 @@ const InvoiceForm = () => {
     }
 
     const handleOnItemChange = (field: string, itemIndex: number, value: number | string) => {
-        const fieldKey = field as keyof ItemInvoiceProps;
+        const fieldKey = field as keyof ItemInvoiceType;
         invoiceData.items[itemIndex][fieldKey] = value;
         setInvoiceData({ ...invoiceData, items: invoiceData.items })
     }
@@ -66,7 +66,7 @@ const InvoiceForm = () => {
                 <div className="flex flex-col gap-6">
                     Items:
                     {invoiceData.items.map((item, index) => (
-                        <div className="w-full flex items-center gap-1">
+                        <div key={index} className="w-full flex items-center gap-1">
                             <div className="w-2/5">
                                 <Input
                                     label="Description"

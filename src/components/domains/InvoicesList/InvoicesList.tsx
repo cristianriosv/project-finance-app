@@ -5,7 +5,7 @@ import TableHead from "../../common/TableHead/TableHead";
 import { ProjectsContext } from "../../../store/ProjectsProvider";
 
 type InvoicesListProps = {
-    invoices: InvoiceProps[];
+    invoices: InvoiceType[];
     projectId: number;
 }
 
@@ -14,7 +14,7 @@ const InvoicesList = ({ invoices, projectId }: InvoicesListProps) => {
     const TABLE_HEAD = ["Invoices", "id", "Sub total", "Discount or Fee", "Tax", "Total", ""];
     const tableCellClassName = "p-4 border-b border-blue-gray-50";
 
-    const handleClickEditInvoice = (invoice: InvoiceProps) => {
+    const handleClickEditInvoice = (invoice: InvoiceType) => {
         handleInvoiceForm(true, false, invoice, projectId);
     }
 

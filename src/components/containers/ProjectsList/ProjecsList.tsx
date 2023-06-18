@@ -14,7 +14,7 @@ const ProjectsList = () => {
         setOpenedProject(openedProject === id ? null : id);
     }
 
-    const renderTableRow = (project: ProjectProps, index: number) => {
+    const renderTableRow = (project: ProjectType, index: number) => {
         const isLast = index === projects.length - 1;
         const isOpened = project.id === openedProject;
         return (

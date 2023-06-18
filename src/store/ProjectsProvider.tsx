@@ -3,16 +3,16 @@ import useProjects from "../hooks/useProjects";
 import { DEFAULT_INVOICE } from "../constants/invoiceDefaultData";
 
 type ProjectsContextProps = {
-    projects: ProjectProps[];
-    invoiceForm: InvoiceFormProps;
-    handleInvoiceForm: (open: boolean, isNew: boolean, data?: InvoiceProps, projectId?: number) => void;
+    projects: ProjectType[];
+    invoiceForm: InvoiceFormType;
+    handleInvoiceForm: (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => void;
 }
 
 type useProjectsStoreProps = {
     children: ReactNode
 }
 
-const INITIAL_INVOICE_FORM: InvoiceFormProps = { data: DEFAULT_INVOICE, isNew: false, open: false };
+const INITIAL_INVOICE_FORM: InvoiceFormType = { data: DEFAULT_INVOICE, isNew: false, open: false };
 
 export const ProjectsContext = createContext<ProjectsContextProps>({
     projects: [],
@@ -24,7 +24,7 @@ const ProjectsProvider = ({ children }: useProjectsStoreProps) => {
     const { projects } = useProjects();
     const [invoiceForm, setInvoiceForm] = useState(INITIAL_INVOICE_FORM);
 
-    const handleInvoiceForm = (open: boolean, isNew: boolean, data?: InvoiceProps, projectId?: number) => {
+    const handleInvoiceForm = (open: boolean, isNew: boolean, data?: InvoiceType, projectId?: number) => {
         setInvoiceForm({
             open,
             isNew,
