@@ -88,7 +88,7 @@ const InvoiceForm = () => {
                 <DialogHeader>{isNew ? 'New invoice' : `Invoice number #${invoiceData.id} for project #${projectId}`}</DialogHeader>
                 <XMarkIcon className="mr-3 h-5 w-5" onClick={handleClickClose} />
             </div>
-            <DialogBody divider>
+            <DialogBody divider className="h-[40rem] overflow-scroll">
                 <div className="flex flex-col gap-6">
                     Items:
                     {invoiceData.items.map((item, index) => (
